@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Генератор резюме</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: 'Benzin';
+        src: url('./fonts/Benzin-Regular.woff2') format('woff2'),
+             url('./fonts/Benzin-Regular.woff') format('woff'),
+             url('./fonts/Benzin-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Benzin';
+        src: url('./fonts/Benzin-Bold.woff2') format('woff2'),
+             url('./fonts/Benzin-Bold.woff') format('woff'),
+             url('./fonts/Benzin-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      :root {
+        --primary-color: #000000;
+        --primary-hover: #333333;
+        --secondary-color: #64748b;
+        --success-color: #1e9b5e;
+        --error-color: #ef4444;
+        --warning-color: #f59e0b;
+        --background: linear-gradient(135deg, #f3e8ff 0%, #e0f2fe 100%);
+        --surface: #ffffff;
+        --border: #e2e8f0;
+        --text-primary: #000000;
+        --text-secondary: #64748b;
+        --text-placeholder: #aeb3b8;
+        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      }
+      
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(to right, #F3E7E9, #E3EEFF);
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
+      
+      .container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      
+      .card {
+        background: transparent;
+        border-radius: 12px;
+        box-shadow: none;
+        width: 100%;
+        max-width: 600px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .header {
+        text-align: center;
+        max-width: 100%;
+        margin-top: 40px;
+        margin-bottom: 4px;
+      }
+      
+      .header h1 {
+        font-size: 62px;
+        font-weight: 700;
+        font-family: 'Benzin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+        line-height: 103%;
+        letter-spacing: -0.02em;
+      }
+      
+      .header p {
+        color: var(--text-primary);
+        font-size: 20px;
+        font-weight: 600;
+      }
+      
+      .form-group {
+        margin-bottom: 16px;
+      }
+      
+      .form-label {
+        display: block;
+        font-weight: 500;
+        color: var(--text-placeholder);
+        margin-bottom: 8px;
+        font-size: 18px;
+        line-height: 1.21;
+      }
+      
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        background: #FAFAFE;
+        color: var(--text-primary);
+        box-sizing: border-box;
+      }
+      
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: #AEAFB8;
+        font-weight: 500;
+      }
+      
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        background: #ffffff;
+        box-shadow: 0 0 0 2px var(--primary-color);
+      }
+      
+      .form-textarea {
+        min-height: 336px;
+        resize: vertical;
+        font-family: inherit;
+      }
+      
+      .form-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg width='24' height='25' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M19.9201 9.44922L13.4001 15.9692C12.6301 16.7392 11.3701 16.7392 10.6001 15.9692L4.08008 9.44922' stroke='%23292D32' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+        background-position: right 16px center;
+        background-repeat: no-repeat;
+        background-size: 24px;
+        padding-right: 48px;
+      }
+      
+      .form-select:focus,
+      .form-select:active,
+      .form-select:checked,
+      .form-select option:checked {
+        background-image: url("data:image/svg+xml,%3csvg width='24' height='25' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M19.9201 9.44922L13.4001 15.9692C12.6301 16.7392 11.3701 16.7392 10.6001 15.9692L4.08008 9.44922' stroke='%23292D32' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+        background-position: right 16px center;
+        background-repeat: no-repeat;
+        background-size: 24px;
+      }
+      
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      
+      .checkbox {
+        width: 28px;
+        height: 28px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: #FAFAFE;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+      }
+      
+      .checkbox:checked {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      
+      .checkbox:checked::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: translate(-50%, -60%) rotate(45deg);
+      }
+      
+      .checkbox-label {
+        font-weight: 500;
+        color: var(--text-primary);
+        cursor: pointer;
+        font-size: 18px;
+      }
+      
+      .btn {
+        padding: 16px 32px;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-width: 140px;
+      }
+      
+      .btn-primary {
+        background: var(--primary-color);
+        color: #fafbff;
+        box-shadow: none;
+      }
+      
+      .btn-primary:hover:not(:disabled) {
+        background: var(--primary-hover);
+      }
+      
+      .btn-secondary {
+        background: linear-gradient(135deg, #1e9b5e, #67d9a3);
+        color: #fafbff;
+        opacity: 0.3;
+      }
+      
+      .btn-secondary:not(:disabled) {
+        opacity: 1;
+      }
+      
+      .btn-secondary:hover:not(:disabled) {
+        opacity: 0.9;
+      }
+      
+      .btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+      
+      .status {
+        margin-top: 20px;
+        padding: 16px;
+        border-radius: 12px;
+        font-weight: 500;
+        text-align: center;
+        min-height: 24px;
+        font-size: 16px;
+      }
+      
+      .status.loading {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fbbf24;
+      }
+      
+      .status.success {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+      }
+      
+      .status.error {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #ef4444;
+      }
+      
+      .button-group {
+        display: flex;
+        gap: 16px;
+        margin-top: 16px;
+        justify-content: center;
+      }
+      
+      @media (max-width: 640px) {
+        .container {
+          padding: 16px;
+        }
+        
+        .card {
+          padding: 24px;
+        }
+        
+        .header h1 {
+          font-size: 42px;
+        }
+        
+        .button-group {
+          flex-direction: column;
+        }
+        
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Создай резюме<br>за минуту</h1>
+        <p>Заполни форму. Все поля обязательны</p>
+      </div>
+      
+      <div class="card">
+        <div class="form-group">
+          <input id="fullName" type="text" class="form-input" placeholder="ФИО" required />
+        </div>
+        
+        <div class="form-group">
+          <input id="birthDate" type="text" class="form-input" placeholder="дд.мм.гггг" maxlength="10" required />
+        </div>
+        
+        <div class="form-group">
+          <input id="city" type="text" class="form-input" placeholder="Город" required />
+        </div>
+        
+        <div class="form-group">
+          <input id="contacts" type="text" class="form-input" placeholder="Контакт (почта/тг/телефон)" required />
+        </div>
+        
+        <div class="form-group">
+          <select id="promptType" class="form-select" required>
+            <option value="">Выберите профессию...</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <textarea id="experience" class="form-textarea" placeholder="Опиши свой опыт: компании, проекты, должности, достижения, в какие периоды работал" required></textarea>
+        </div>
+        
+        <div class="checkbox-group">
+          <input type="checkbox" id="relocation" class="checkbox" />
+          <label for="relocation" class="checkbox-label">Готов к переезду</label>
+          </div>
+          
+        <div class="form-group">
+          <input id="salary" type="number" class="form-input" placeholder="Желаемая зарплата (₽)" required />
+        </div>
+          
+        <div class="form-group">
+          <select id="education" class="form-select" required>
+            <option value="">Выберите образование...</option>
+            <option value="no_education">Нет образования</option>
+            <option value="secondary">Среднее</option>
+            <option value="secondary_special">Среднее специальное</option>
+            <option value="higher_incomplete">Высшее не оконченное</option>
+            <option value="higher">Высшее</option>
+          </select>
+        </div>
+          
+        <div class="button-group">
+          <button id="generateBtn" class="btn btn-primary">Поехали</button>
+          <button id="downloadBtn" class="btn btn-secondary" disabled>Скачать</button>
+        </div>
+        
+        <div class="status" id="status"></div>
+      </div>
+    </div>
+    <script src="/main.js"></script>
+  </body>
+  </html>
+

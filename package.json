@@ -1,0 +1,26 @@
+{
+  "name": "resumegenerate",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsdom": "^22.1.0",
+    "node-fetch": "^2.7.0",
+    "puppeteer": "^24.23.0",
+    "readability-js": "^1.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
