@@ -124,17 +124,10 @@ app.post('/api/generate', async (req, res) => {
     try {
       console.log('Starting generation for prompt type:', promptType);
       
-      // 1) Scrape HH vacancies for role based on prompt type
-      console.log('Scraping HH vacancies...');
-      const searchQuery = getSearchQueryForPrompt(promptType);
-      const vacancies = await scrapeHhForRole(searchQuery);
-      console.log('Found vacancies:', vacancies.length);
-
-      // 2) Analyze vacancies to extract keywords
-      console.log('Analyzing vacancies for keywords...');
-      const keywords = await analyzeVacancies(vacancies, promptType);
-      const keywordsText = formatKeywordsForPrompt(keywords);
-      console.log('Extracted keywords:', keywordsText);
+      // Временно отключаем парсинг HH из-за блокировок
+      console.log('Skipping HH scraping due to 403 errors...');
+      const vacancies = [];
+      const keywordsText = 'Опыт работы в сфере IT';
 
       // 3) Get prompt and call LLM via OpenRouter
       console.log('Calling OpenRouter...');
