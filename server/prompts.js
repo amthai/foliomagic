@@ -40,13 +40,11 @@ const prompts = {
 }
 
 Важно:
-- Включай современные навыки 2024-2025: Figma, Design Systems, User Research, A/B тестирование, метрики (DAU, retention, conversion), AI-инструменты (Midjourney, ChatGPT), accessibility (WCAG), mobile-first, responsive design
-- Подчеркни навыки в дизайне интерфейсов и пользовательском опыте
-- Включи конкретные метрики и результаты A/B тестов
-- Используй профессиональную терминологию продуктового дизайна
-- Добавь навыки работы с данными и аналитикой
-- Опыт работы: проанализируй текст "{experienceText}" и структурируй его в массив объектов experience с полями company, role, dates, achievements
-- Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
+- В summary напиши краткое профессиональное описание (2-3 предложения) о кандидате, НЕ копируй текст из experienceText
+- В skills укажи 10-15 ключевых навыков для продуктового дизайнера на русском языке: Figma, Design Systems, User Research, A/B тестирование, метрики, AI-инструменты, accessibility, mobile-first, responsive design, prototyping, user interviews, data analysis, competitive analysis, wireframing, usability testing
+- В experience: проанализируй текст "{experienceText}" и создай структурированный массив с полями company, role, dates, achievements
+- Если в тексте опыта нет четкой структуры, извлеки информацию о компаниях, должностях и достижениях
+- Достижения (achievements) должны быть конкретными с цифрами и результатами
 - Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
   },
 
@@ -91,13 +89,11 @@ const prompts = {
 }
 
 Важно:
-- Включай современные навыки 2024-2025: Figma, Adobe Creative Suite, HTML/CSS, responsive design, UI/UX, prototyping, user research, accessibility (WCAG), performance optimization, mobile-first, design systems
-- Подчеркни навыки в создании веб-интерфейсов и адаптивном дизайне
-- Включи информацию о портфолио и проектах
-- Используй терминологию веб-дизайна
-- Добавь навыки работы с современными инструментами и фреймворками
-- Опыт работы: проанализируй текст "{experienceText}" и структурируй его в массив объектов experience с полями company, role, dates, achievements
-- Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
+- В summary напиши краткое профессиональное описание (2-3 предложения) о кандидате, НЕ копируй текст из experienceText
+- В skills укажи 10-15 ключевых навыков для веб-дизайнера на русском языке: Figma, Adobe Creative Suite, HTML/CSS, responsive design, UI/UX, prototyping, user research, accessibility, performance optimization, mobile-first, design systems, wireframing, user testing, brand identity, typography, color theory, layout design
+- В experience: проанализируй текст "{experienceText}" и создай структурированный массив с полями company, role, dates, achievements
+- Если в тексте опыта нет четкой структуры, извлеки информацию о компаниях, должностях и достижениях
+- Достижения (achievements) должны быть конкретными с цифрами и результатами
 - Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
   },
 
@@ -397,13 +393,11 @@ const prompts = {
 }
 
 Важно:
-- Включай ключевые слова и навыки из анализа актуальных вакансий: {keywords}
-- Подчеркни навыки в продуктовом управлении и стратегии
-- Включи конкретные метрики и результаты продуктов
-- Адаптируй под требования конкретных вакансий
-- Используй терминологию продуктового менеджмента
-- Опыт работы: проанализируй текст "{experienceText}" и структурируй его в массив объектов experience с полями company, role, dates, achievements
-- Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
+- В summary напиши краткое профессиональное описание (2-3 предложения) о кандидате, НЕ копируй текст из experienceText
+- В skills укажи 10-15 ключевых навыков для продакт-менеджера на русском языке: Product Strategy, Data Analysis, A/B тестирование, метрики (DAU, MAU, retention, LTV), Agile/Scrum, user research, market analysis, competitive analysis, roadmap planning, stakeholder management, requirements gathering, product launch, KPI tracking, user stories, backlog management
+- В experience: проанализируй текст "{experienceText}" и создай структурированный массив с полями company, role, dates, achievements
+- Если в тексте опыта нет четкой структуры, извлеки информацию о компаниях, должностях и достижениях
+- Достижения (achievements) должны быть конкретными с цифрами и результатами
 - Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
   }
 };

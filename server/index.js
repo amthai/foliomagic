@@ -150,19 +150,15 @@ app.post('/api/generate', async (req, res) => {
         content: formatPrompt(selectedPrompt, promptData)
       };
 
-      // Временное решение - используем заглушку вместо OpenRouter
-      const resume = {
-        fullName: fullName,
-        title: 'Product Designer',
-        summary: `Опытный специалист с ${experienceText}`,
-        contacts: contacts,
-        city: city,
-        age: age,
-        relocation: relocation,
-        salary: salary,
-        education: education,
-        experience: experienceText
-      };
+      const completion = await callOpenRouter({
+        model: 'openai/gpt-4o-mini',
+        messages: [system, user],
+        responseFormat: { type: 'json_object' },
+        apiKey: process.env.OPENROUTER_API_KEY,
+      });
+
+      const text = completion?.choices?.[0]?.message?.content || '{}';
+      const resume = JSON.parse(text);
       console.log('Generated resume:', JSON.stringify(resume, null, 2));
 
       // 3) Render HTML and generate PDF
