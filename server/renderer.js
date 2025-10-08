@@ -93,15 +93,29 @@ async function renderResumeHtml(resume) {
 async function generatePdfFromHtml(html) {
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox','--disable-setuid-sandbox'],
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--disable-gpu'
+    ],
+    timeout: 60000,
+    protocolTimeout: 60000
   });
   try {
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: 'networkidle0' });
+    await page.setContent(html, { 
+      waitUntil: 'domcontentloaded',
+      timeout: 30000 
+    });
     const pdfBuffer = await page.pdf({
       format: 'A4',
       printBackground: true,
       margin: { top: '14mm', right: '14mm', bottom: '14mm', left: '14mm' },
+      timeout: 30000
     });
     return pdfBuffer;
   } finally {

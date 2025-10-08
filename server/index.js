@@ -169,7 +169,16 @@ app.post('/api/generate', async (req, res) => {
       console.log('Generating PDF...');
       const { renderResumeHtml, generatePdfFromHtml } = require('./renderer');
       const html = await renderResumeHtml(resume);
-      const pdfBuffer = await generatePdfFromHtml(html);
+      
+      let pdfBuffer;
+      try {
+        pdfBuffer = await generatePdfFromHtml(html);
+      } catch (pdfError) {
+        console.error('PDF generation failed, using fallback:', pdfError.message);
+        // Fallback - возвращаем HTML вместо PDF
+        const htmlBuffer = Buffer.from(html, 'utf-8');
+        pdfBuffer = htmlBuffer;
+      }
 
       // Save PDF to file for persistence
       const pdfPath = path.join(tempDir, `${requestId}.pdf`);
