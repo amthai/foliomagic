@@ -51,17 +51,25 @@ async function renderResumeHtml(resume) {
   }
   
   // Заменяем секцию опыта работы
-  if (resume.experience && resume.experience.length > 0) {
-    const experienceHtml = resume.experience.map(exp => {
-      let html = `<li><strong>${escapeHtml(exp.role)}</strong>, ${escapeHtml(exp.company)} · ${escapeHtml(exp.dates)}</li>`;
-      if (exp.achievements && exp.achievements.length > 0) {
-        const achievementsHtml = exp.achievements.map(achievement => 
-          `<li>${escapeHtml(achievement)}</li>`
-        ).join('\n');
-        html += `<ul style="margin-top: 4px; padding-left: 18px;">\n${achievementsHtml}\n</ul>`;
-      }
-      return html;
-    }).join('\n');
+  if (resume.experience) {
+    let experienceHtml;
+    if (Array.isArray(resume.experience)) {
+      // Если это массив объектов опыта
+      experienceHtml = resume.experience.map(exp => {
+        let html = `<li><strong>${escapeHtml(exp.role)}</strong>, ${escapeHtml(exp.company)} · ${escapeHtml(exp.dates)}</li>`;
+        if (exp.achievements && exp.achievements.length > 0) {
+          const achievementsHtml = exp.achievements.map(achievement => 
+            `<li>${escapeHtml(achievement)}</li>`
+          ).join('\n');
+          html += `<ul style="margin-top: 4px; padding-left: 18px;">\n${achievementsHtml}\n</ul>`;
+        }
+        return html;
+      }).join('\n');
+    } else {
+      // Если это строка с описанием опыта
+      experienceHtml = `<li>${escapeHtml(resume.experience)}</li>`;
+    }
+    
     // Находим секцию опыта работы и заменяем весь список
     html = html.replace(
       /<h2>Опыт работы<\/h2>\s*<ul>[\s\S]*?<\/ul>/,
