@@ -15,10 +15,10 @@ if (!process.env.OPENROUTER_API_KEY) {
 }
 
 const { generateSamplePdf } = require('./pdf');
-const { scrapeHhForRole } = require('./scrape');
+const { scrapeHhForRole, scrapeSpecificVacancy } = require('./scrape');
 const { callOpenRouter } = require('./openrouter');
 const { getPrompt, formatPrompt, getAllPrompts } = require('./prompts');
-const { analyzeVacancies, formatKeywordsForPrompt } = require('./vacancyAnalyzer');
+const { analyzeVacancies, analyzeSpecificVacancy, formatKeywordsForPrompt } = require('./vacancyAnalyzer');
 
 // Function to get search query based on prompt type
 function getSearchQueryForPrompt(promptType) {
@@ -106,8 +106,8 @@ app.get('/api/prompts', (req, res) => {
 // Stub endpoint for generation flow
 app.post('/api/generate', async (req, res) => {
   try {
-    const { fullName, birthDate, city, contacts, experienceText, promptType, relocation, salary, education } = req.body || {};
-    console.log('Received form data:', { fullName, birthDate, city, contacts, experienceText, promptType, relocation, salary, education });
+    const { fullName, birthDate, city, contacts, portfolio, experienceText, promptType, grade, relocation, salary, education, customizeForVacancy, vacancyUrl } = req.body || {};
+    console.log('Received form data:', { fullName, birthDate, city, contacts, portfolio, experienceText, promptType, grade, relocation, salary, education, customizeForVacancy, vacancyUrl });
     if (!fullName) {
       return res.status(400).json({ error: 'fullName is required' });
     }
@@ -124,10 +124,32 @@ app.post('/api/generate', async (req, res) => {
     try {
       console.log('Starting generation for prompt type:', promptType);
       
-      // Временно отключаем парсинг HH из-за блокировок
-      console.log('Skipping HH scraping due to 403 errors...');
-      const vacancies = [];
-      const keywordsText = 'Опыт работы в сфере IT';
+      let vacancies = [];
+      let keywordsText = 'Опыт работы в сфере IT';
+      
+      // Если выбрана подстройка под вакансию
+      if (customizeForVacancy && vacancyUrl) {
+        console.log('Подстройка под конкретную вакансию:', vacancyUrl);
+        try {
+          // Парсим конкретную вакансию
+          const specificVacancy = await scrapeSpecificVacancy(vacancyUrl);
+          vacancies = [specificVacancy];
+          
+          // Анализируем вакансию для извлечения ключевых слов
+          const vacancyAnalysis = await analyzeSpecificVacancy(specificVacancy, promptType);
+          keywordsText = formatKeywordsForPrompt(vacancyAnalysis);
+          
+          console.log('Анализ вакансии завершен. Ключевые слова:', keywordsText);
+        } catch (vacancyError) {
+          console.error('Ошибка парсинга вакансии:', vacancyError);
+          // Fallback к обычному режиму
+          console.log('Переключение на обычный режим генерации...');
+        }
+      } else {
+        // Временно отключаем парсинг HH из-за блокировок
+        console.log('Skipping HH scraping due to 403 errors...');
+        keywordsText = 'Опыт работы в сфере IT';
+      }
 
       // 3) Get prompt and call LLM via OpenRouter
       console.log('Calling OpenRouter...');
@@ -136,7 +158,7 @@ app.post('/api/generate', async (req, res) => {
       const selectedPrompt = getPrompt(promptType);
       const age = calculateAge(birthDate);
       const promptData = {
-        fullName, birthDate, city, contacts, experienceText, relocation, salary, education, age,
+        fullName, birthDate, city, contacts, portfolio, experienceText, grade, relocation, salary, education, age,
         vacancies: vacancies.map(v => ({ url: v.url, title: v.title, content: v.content?.slice(0, 4000) })),
         keywords: keywordsText
       };

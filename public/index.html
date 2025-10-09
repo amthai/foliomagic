@@ -346,9 +346,32 @@
         </div>
         
         <div class="form-group">
+          <input id="portfolio" type="url" class="form-input" placeholder="Ссылка на портфолио" />
+        </div>
+        
+        <div class="form-group">
           <select id="promptType" class="form-select" required>
             <option value="">Выберите профессию...</option>
           </select>
+        </div>
+        
+        <div class="form-group">
+          <select id="grade" class="form-select" required>
+            <option value="">Выберите грейд...</option>
+            <option value="junior">Джуниор</option>
+            <option value="middle">Миддл</option>
+            <option value="senior">Сеньор</option>
+            <option value="lead">Лид</option>
+          </select>
+        </div>
+        
+        <div class="checkbox-group">
+          <input type="checkbox" id="customizeForVacancy" class="checkbox" />
+          <label for="customizeForVacancy" class="checkbox-label">Подстроить резюме под вакансию</label>
+        </div>
+        
+        <div class="form-group" id="vacancyUrlGroup" style="display: none;">
+          <input id="vacancyUrl" type="url" class="form-input" placeholder="Вставьте ссылку на вакансию" />
         </div>
         
         <div class="form-group">

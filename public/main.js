@@ -2,7 +2,12 @@ const fullNameInput = document.getElementById('fullName');
 const birthDateInput = document.getElementById('birthDate');
 const cityInput = document.getElementById('city');
 const contactsInput = document.getElementById('contacts');
+const portfolioInput = document.getElementById('portfolio');
 const promptTypeSelect = document.getElementById('promptType');
+const gradeSelect = document.getElementById('grade');
+const customizeForVacancyCheckbox = document.getElementById('customizeForVacancy');
+const vacancyUrlInput = document.getElementById('vacancyUrl');
+const vacancyUrlGroup = document.getElementById('vacancyUrlGroup');
 const experienceInput = document.getElementById('experience');
 const relocationCheckbox = document.getElementById('relocation');
 const salaryInput = document.getElementById('salary');
@@ -20,7 +25,7 @@ async function loadPrompts() {
     const data = await res.json();
     
     // Clear existing options except the first one
-    promptTypeSelect.innerHTML = '<option value="">Выберите тип промпта...</option>';
+    promptTypeSelect.innerHTML = '<option value="">Выберите профессию...</option>';
     
     // Add prompt options
     data.prompts.forEach(prompt => {
@@ -37,6 +42,18 @@ async function loadPrompts() {
 
 // Load prompts when page loads
 loadPrompts();
+
+// Handle vacancy customization checkbox
+customizeForVacancyCheckbox.addEventListener('change', function() {
+  if (this.checked) {
+    vacancyUrlGroup.style.display = 'block';
+    vacancyUrlInput.required = true;
+  } else {
+    vacancyUrlGroup.style.display = 'none';
+    vacancyUrlInput.required = false;
+    vacancyUrlInput.value = '';
+  }
+});
 
 // Date input mask
 birthDateInput.addEventListener('input', function(e) {
@@ -101,7 +118,11 @@ generateBtn.addEventListener('click', async () => {
     birthDate: birthDateInput.value.trim(),
     city: cityInput.value.trim(),
     contacts: contactsInput.value.trim(),
+    portfolio: portfolioInput.value.trim(),
     promptType: promptTypeSelect.value,
+    grade: gradeSelect.value,
+    customizeForVacancy: customizeForVacancyCheckbox.checked,
+    vacancyUrl: customizeForVacancyCheckbox.checked ? vacancyUrlInput.value.trim() : null,
     experienceText: experienceInput.value.trim(),
     relocation: relocationCheckbox.checked,
     salary: salaryInput.value ? parseInt(salaryInput.value) : null,

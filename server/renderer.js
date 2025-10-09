@@ -16,6 +16,19 @@ async function renderResumeHtml(resume) {
   const contactsAndCity = [resume.contacts, resume.city].filter(Boolean).join(' · ');
   html = html.replace(/email@example\.com · @telegram/, escapeHtml(contactsAndCity || ''));
   
+  // Обрабатываем портфолио
+  if (resume.portfolio) {
+    html = html.replace(/<div class="portfolio" id="portfolio" style="margin-bottom: 16px; display: none;">[\s\S]*?<\/div>/, 
+      `<div class="portfolio" id="portfolio" style="margin-bottom: 16px;">
+        <strong>Портфолио:</strong> <a href="${escapeHtml(resume.portfolio)}" target="_blank">${escapeHtml(resume.portfolio)}</a>
+      </div>`);
+  } else {
+    html = html.replace(/<div class="portfolio" id="portfolio" style="margin-bottom: 16px; display: none;">[\s\S]*?<\/div>/, 
+      `<div class="portfolio" id="portfolio" style="margin-bottom: 16px; display: none;">
+        <strong>Портфолио:</strong> <a href="#" id="portfolioLink" target="_blank">Ссылка на портфолио</a>
+      </div>`);
+  }
+  
   // Заменяем новые поля
   if (resume.age) {
     const ageText = `${resume.age} лет`;

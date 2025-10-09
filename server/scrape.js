@@ -62,6 +62,19 @@ async function scrapeHhForRole(role, area) {
   return items;
 }
 
-module.exports = { scrapeHhForRole };
+// Функция для парсинга конкретной вакансии по URL
+async function scrapeSpecificVacancy(vacancyUrl) {
+  try {
+    console.log('Парсинг вакансии по URL:', vacancyUrl);
+    const item = await fetchReadable(vacancyUrl);
+    console.log('Успешно спарсили вакансию:', item.title);
+    return item;
+  } catch (error) {
+    console.error('Ошибка парсинга вакансии:', error);
+    throw new Error(`Не удалось спарсить вакансию: ${error.message}`);
+  }
+}
+
+module.exports = { scrapeHhForRole, scrapeSpecificVacancy };
 
 

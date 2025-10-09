@@ -132,8 +132,82 @@ function formatKeywordsForPrompt(keywords) {
     .join('. ');
 }
 
+// Функция для анализа конкретной вакансии с фокусом на 85-95% совпадение
+async function analyzeSpecificVacancy(vacancy, promptType) {
+  if (!vacancy) {
+    return getDefaultKeywords(promptType);
+  }
+
+  try {
+    console.log('Анализируем конкретную вакансию:', vacancy.title);
+    
+    const systemPrompt = `Ты эксперт по анализу вакансий. Проанализируй эту вакансию и извлеки ключевые требования, навыки и инструменты.
+
+ВАЖНО: Цель - создать резюме с совпадением 85-95% с требованиями вакансии.
+
+Верни результат в формате JSON:
+{
+  "skills": ["навык1", "навык2", "навык3"],
+  "tools": ["инструмент1", "инструмент2", "инструмент3"],
+  "keywords": ["ключевое_слово1", "ключевое_слово2", "ключевое_слово3"],
+  "requirements": ["требование1", "требование2", "требование3"],
+  "experience_level": "junior|middle|senior",
+  "key_responsibilities": ["обязанность1", "обязанность2", "обязанность3"],
+  "preferred_qualities": ["качество1", "качество2", "качество3"]
+}
+
+Фокусируйся на:
+- Точных технических требованиях из вакансии
+- Конкретных инструментах и технологиях
+- Уровне опыта и компетенций
+- Ключевых обязанностях
+- Желаемых качествах кандидата
+
+Верни только JSON, без дополнительного текста.`;
+
+    const userPrompt = `Проанализируй эту вакансию и извлеки ключевые требования для создания резюме с высоким совпадением:
+
+ЗАГОЛОВОК: ${vacancy.title}
+
+ОПИСАНИЕ:
+${vacancy.content?.slice(0, 4000) || ''}`;
+
+    const completion = await callOpenRouter({
+      model: 'openai/gpt-4o-mini',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      responseFormat: { type: 'json_object' },
+      apiKey: process.env.OPENROUTER_API_KEY,
+    });
+
+    const analysis = JSON.parse(completion?.choices?.[0]?.message?.content || '{}');
+    
+    // Объединяем с дефолтными ключевыми словами для полноты
+    const defaultKeywords = getDefaultKeywords(promptType);
+    
+    return {
+      skills: [...new Set([...(analysis.skills || []), ...(defaultKeywords.skills || [])])],
+      tools: [...new Set([...(analysis.tools || []), ...(defaultKeywords.tools || [])])],
+      keywords: [...new Set([...(analysis.keywords || []), ...(defaultKeywords.keywords || [])])],
+      requirements: [...new Set([...(analysis.requirements || []), ...(defaultKeywords.requirements || [])])],
+      experience_level: analysis.experience_level || 'middle',
+      key_responsibilities: analysis.key_responsibilities || [],
+      preferred_qualities: analysis.preferred_qualities || [],
+      vacancy_title: vacancy.title,
+      vacancy_url: vacancy.url
+    };
+
+  } catch (error) {
+    console.error('Ошибка анализа конкретной вакансии:', error);
+    return getDefaultKeywords(promptType);
+  }
+}
+
 module.exports = {
   analyzeVacancies,
+  analyzeSpecificVacancy,
   getDefaultKeywords,
   formatKeywordsForPrompt
 };
