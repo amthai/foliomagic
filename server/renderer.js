@@ -63,6 +63,19 @@ async function renderResumeHtml(resume) {
     html = html.replace(/<span id="education">.*?<\/span>/, `<span id="education">Не указано</span>`);
   }
   
+  if (resume.grade) {
+    const gradeMap = {
+      'junior': 'Джуниор',
+      'middle': 'Миддл',
+      'senior': 'Сеньор',
+      'lead': 'Лид'
+    };
+    const gradeText = gradeMap[resume.grade] || resume.grade;
+    html = html.replace(/<span id="grade">.*?<\/span>/, `<span id="grade">${escapeHtml(gradeText)}</span>`);
+  } else {
+    html = html.replace(/<span id="grade">.*?<\/span>/, `<span id="grade">Не указан</span>`);
+  }
+  
   // Заменяем секцию опыта работы
   if (resume.experience) {
     let experienceHtml;

@@ -13,6 +13,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -42,7 +43,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -60,7 +63,9 @@ const prompts = {
 - ЗАПРЕЩЕНО: Добавлять любые достижения, проекты, обязанности или опыт, которых НЕТ в предоставленном пользователем тексте
 - ПРАВИЛО: Если в тексте опыта мало информации - используй ТОЛЬКО то, что есть. НЕ ДОПОЛНЯЙ!
 - ПРИМЕР: Если пользователь написал "работал в компании X 2 года", то пиши именно это, а НЕ добавляй "разрабатывал интерфейсы, проводил исследования" и т.д.
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для веб-дизайнеров
@@ -77,6 +82,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -106,7 +112,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -124,7 +132,9 @@ const prompts = {
 - ЗАПРЕЩЕНО: Добавлять любые достижения, проекты, обязанности или опыт, которых НЕТ в предоставленном пользователем тексте
 - ПРАВИЛО: Если в тексте опыта мало информации - используй ТОЛЬКО то, что есть. НЕ ДОПОЛНЯЙ!
 - ПРИМЕР: Если пользователь написал "работал в компании X 2 года", то пиши именно это, а НЕ добавляй "разрабатывал интерфейсы, проводил исследования" и т.д.
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для коммуникационных дизайнеров
@@ -141,6 +151,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -170,7 +181,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -185,7 +198,9 @@ const prompts = {
 - Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
 - Достижения (achievements) должны быть конкретными с цифрами и результатами, адаптированными под грейд
 - Пиши простым, понятным языком, избегай канцеляризмов и роботизированных фраз
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для 3D дизайнеров
@@ -202,6 +217,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -231,7 +247,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -246,7 +264,9 @@ const prompts = {
 - Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
 - Достижения (achievements) должны быть конкретными с цифрами и результатами, адаптированными под грейд
 - Пиши простым, понятным языком, избегай канцеляризмов и роботизированных фраз
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для моушн дизайнеров
@@ -263,6 +283,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -292,7 +313,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -307,7 +330,9 @@ const prompts = {
 - Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
 - Достижения (achievements) должны быть конкретными с цифрами и результатами, адаптированными под грейд
 - Пиши простым, понятным языком, избегай канцеляризмов и роботизированных фраз
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для бизнес-аналитиков
@@ -324,6 +349,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -353,7 +379,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -368,7 +396,9 @@ const prompts = {
 - Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
 - Достижения (achievements) должны быть конкретными с цифрами и результатами, адаптированными под грейд
 - Пиши простым, понятным языком, избегай канцеляризмов и роботизированных фраз
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для системных аналитиков
@@ -385,6 +415,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -414,7 +445,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -429,7 +462,9 @@ const prompts = {
 - Если в тексте опыта нет четкой структуры, попробуй извлечь информацию о компаниях, должностях и достижениях
 - Достижения (achievements) должны быть конкретными с цифрами и результатами, адаптированными под грейд
 - Пиши простым, понятным языком, избегай канцеляризмов и роботизированных фраз
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   },
 
   // Промпт для продакт менеджеров
@@ -446,6 +481,7 @@ const prompts = {
 - Возраст: {age} лет
 - Город: {city}
 - Контакты: {contacts}
+- Портфолио: {portfolio}
 - Грейд: {grade}
 - Опыт работы: {experienceText}
 - Готовность к переезду: {relocation}
@@ -475,7 +511,9 @@ const prompts = {
   "age": "number",
   "relocation": "boolean",
   "salary": "number",
-  "education": "string"
+  "education": "string",
+  "portfolio": "string",
+  "grade": "string"
 }
 
 Важно:
@@ -493,7 +531,9 @@ const prompts = {
 - ЗАПРЕЩЕНО: Добавлять любые достижения, проекты, обязанности или опыт, которых НЕТ в предоставленном пользователем тексте
 - ПРАВИЛО: Если в тексте опыта мало информации - используй ТОЛЬКО то, что есть. НЕ ДОПОЛНЯЙ!
 - ПРИМЕР: Если пользователь написал "работал в компании X 2 года", то пиши именно это, а НЕ добавляй "разрабатывал интерфейсы, проводил исследования" и т.д.
-- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"`
+- Контакты и город: используй точные данные из формы "{contacts}" и "{city}"
+- Портфолио: если указано "{portfolio}", включи его в поле portfolio в JSON ответе
+- Грейд: если указан "{grade}", включи его в поле grade в JSON ответе`
   }
 };
 
@@ -502,7 +542,7 @@ function getPrompt(promptType) {
 }
 
 function formatPrompt(prompt, data) {
-  const { fullName, birthDate, city, contacts, experienceText, grade, relocation, salary, education, age, vacancies, keywords } = data;
+  const { fullName, birthDate, city, contacts, portfolio, experienceText, grade, relocation, salary, education, age, vacancies, keywords } = data;
   
   const vacanciesText = vacancies.map(v => 
     `- ${v.title} (${v.url}): ${v.content?.slice(0, 1000) || 'Описание недоступно'}`
@@ -523,6 +563,7 @@ function formatPrompt(prompt, data) {
     .replace('{age}', ageText)
     .replace('{city}', city || '')
     .replace('{contacts}', contacts || '')
+    .replace('{portfolio}', portfolio || '')
     .replace('{grade}', gradeText)
     .replace('{experienceText}', experienceText || '')
     .replace('{relocation}', relocationText)

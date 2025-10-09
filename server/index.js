@@ -186,6 +186,15 @@ app.post('/api/generate', async (req, res) => {
       // 3) Render HTML and generate PDF
       console.log('Generating PDF...');
       const { renderResumeHtml, generatePdfFromHtml } = require('./renderer');
+      
+      // Добавляем fallback для портфолио и грейда из формы, если LLM их не вернул
+      if (!resume.portfolio && portfolio) {
+        resume.portfolio = portfolio;
+      }
+      if (!resume.grade && grade) {
+        resume.grade = grade;
+      }
+      
       const html = await renderResumeHtml(resume);
       
       let pdfBuffer;
