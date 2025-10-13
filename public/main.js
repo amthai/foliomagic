@@ -18,6 +18,33 @@ const statusEl = document.getElementById('status');
 
 let currentRequestId = null;
 
+// Навигация между секциями
+const navItems = document.querySelectorAll('.nav-item');
+const resumeSection = document.querySelector('.container');
+const caseSection = document.getElementById('case-section');
+
+navItems.forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Убираем активный класс у всех элементов
+    navItems.forEach(nav => nav.classList.remove('active'));
+    
+    // Добавляем активный класс к текущему элементу
+    item.classList.add('active');
+    
+    const section = item.getAttribute('data-section');
+    
+    if (section === 'resume') {
+      resumeSection.style.display = 'flex';
+      caseSection.style.display = 'none';
+    } else if (section === 'case') {
+      resumeSection.style.display = 'none';
+      caseSection.style.display = 'block';
+    }
+  });
+});
+
 // Load prompts on page load
 async function loadPrompts() {
   try {

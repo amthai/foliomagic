@@ -58,6 +58,49 @@
         line-height: 1.6;
       }
       
+      .navigation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: transparent;
+        z-index: 1000;
+        padding: 16px 0;
+      }
+      
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+      }
+      
+      .nav-item {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      
+      .nav-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      
+      .nav-item.active {
+        background: var(--primary-color);
+        color: white;
+      }
+      
+      .main-content {
+        margin-top: 80px;
+      }
+      
       .container {
         min-height: 100vh;
         display: flex;
@@ -299,6 +342,20 @@
       }
       
       @media (max-width: 640px) {
+        .nav-container {
+          gap: 20px;
+          padding: 0 16px;
+        }
+        
+        .nav-item {
+          font-size: 16px;
+          padding: 6px 12px;
+        }
+        
+        .main-content {
+          margin-top: 70px;
+        }
+        
         .container {
           padding: 16px;
         }
@@ -322,11 +379,19 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <h1>Создай резюме<br>за минуту</h1>
-        <p>Заполни форму. Все поля обязательны</p>
+    <nav class="navigation">
+      <div class="nav-container">
+        <a href="#" class="nav-item active" data-section="resume">Резюме</a>
+        <a href="#" class="nav-item" data-section="case">Кейс</a>
       </div>
+    </nav>
+    
+    <div class="main-content">
+      <div class="container">
+        <div class="header">
+          <h1>Создай резюме<br>за минуту</h1>
+          <p>Заполни форму. Все поля обязательны</p>
+        </div>
       
       <div class="card">
         <div class="form-group">
@@ -405,6 +470,21 @@
         
         <div class="status" id="status"></div>
       </div>
+      
+      <!-- Секция кейса (заглушка) -->
+      <div id="case-section" style="display: none;">
+        <div class="header">
+          <h1>Кейсы</h1>
+          <p>Здесь будут примеры работ</p>
+        </div>
+        <div class="card">
+          <div style="text-align: center; padding: 40px;">
+            <h2 style="color: var(--text-secondary); margin-bottom: 16px;">Скоро здесь появятся кейсы</h2>
+            <p style="color: var(--text-placeholder);">Эта секция находится в разработке</p>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
     <script src="/main.js"></script>
   </body>
